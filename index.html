@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel de Gerenciamento - Loja de Joias</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9fefe;
+        min-height: 100vh;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      /* Modal de Login */
+      .modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        padding: 2rem;
+        width: 100%;
+        max-width: 400px;
+        margin: 1rem;
+      }
+
+      .modal-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .modal-header i {
+        color: #3ccac8;
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .modal-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #0f3e3d;
+        margin-bottom: 0.5rem;
+      }
+
+      .modal-subtitle {
+        color: #4b6968;
+      }
+
+      /* Header */
+      header {
+        background-color: #2baeac;
+        color: white;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 0;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .header-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .logout-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .logout-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      /* Main Content */
+      main {
+        padding: 2rem 0;
+      }
+
+      .card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #0f3e3d;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .card-title i {
+        color: #3ccac8;
+      }
+
+      /* Forms */
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      @media (min-width: 768px) {
+        .form-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group.full-width {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        display: block;
+        color: #0f3e3d;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e6f5f5;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+        background: white;
+      }
+
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #3ccac8;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #3ccac8, #2baeac);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(135deg, #2baeac, #0f3e3d);
+        transform: translateY(-1px);
+      }
+
+      .btn-success {
+        background-color: #22c55e;
+        color: white;
+      }
+
+      .btn-success:hover {
+        background-color: #16a34a;
+      }
+
+      .btn-danger {
+        background-color: #ef4444;
+        color: white;
+      }
+
+      .btn-danger:hover {
+        background-color: #dc2626;
+      }
+
+      .btn-secondary {
+        background-color: #e6f5f5;
+        color: #0f3e3d;
+      }
+
+      .btn-secondary:hover {
+        background-color: #3ccac8;
+        color: white;
+      }
+
+      .btn-small {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+      }
+
+      .btn-full {
+        width: 100%;
+      }
+
+      /* Loading */
+      .loading {
+        border: 3px solid #e6f5f5;
+        border-top: 3px solid #3ccac8;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Products Grid */
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .product-card {
+        background: #f9fefe;
+        border: 1px solid #e6f5f5;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .product-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(43, 174, 172, 0.15);
+      }
+
+      .product-image {
+        aspect-ratio: 1;
+        background-color: #f3f4f6;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .product-image .placeholder {
+        color: #9ca3af;
+        font-size: 2.5rem;
+      }
+
+      .product-info {
+        padding: 1rem;
+      }
+
+      .product-title {
+        font-weight: 600;
+        color: #0f3e3d;
+        margin-bottom: 0.5rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .product-description {
+        color: #4b6968;
+        font-size: 0.875rem;
+        margin-bottom: 0.75rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .product-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+      }
+
+      .product-stock {
+        color: #3ccac8;
+        font-weight: bold;
+      }
+
+      .product-id {
+        font-size: 0.75rem;
+        color: #4b6968;
+      }
+
+      .product-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .product-actions .btn {
+        flex: 1;
+      }
+
+      /* Header Actions */
+      .header-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+      }
+
+      /* States */
+      .hidden {
+        display: none !important;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .loading-state {
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .loading-state .loading {
+        margin-bottom: 0.75rem;
+      }
+
+      .loading-state p {
+        color: #4b6968;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 3rem 0;
+        color: #4b6968;
+      }
+
+      .empty-state i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      /* Footer */
+      footer {
+        background-color: #2baeac;
+        color: white;
+        padding: 1.5rem 0;
+        margin-top: 3rem;
+        text-align: center;
+      }
+
+      /* Notifications */
+      .notifications {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 40;
+      }
+
+      .notification {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        margin-bottom: 0.75rem;
+        color: white;
+        transform: translateX(100%);
+        opacity: 0;
+        transition: all 0.3s;
+      }
+
+      .notification.show {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      .notification.success {
+        background-color: #22c55e;
+      }
+
+      .notification.error {
+        background-color: #ef4444;
+      }
+
+      .notification.info {
+        background-color: #3ccac8;
+      }
+
+      .notification i {
+        margin-right: 0.75rem;
+      }
+
+      .notification .close {
+        margin-left: 1rem;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 0;
+      }
+
+      .notification .close:hover {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* Error States */
+      .error-message {
+        background-color: #fee2e2;
+        border: 1px solid #fecaca;
+        color: #dc2626;
+        padding: 0.75rem;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        text-align: center;
+        margin-top: 1rem;
+      }
+
+      /* File Input */
+      .file-input-wrapper {
+        position: relative;
+      }
+
+      .file-input-icon {
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #4b6968;
+        pointer-events: none;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 0.5rem;
+        }
+
+        .header-content {
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+        }
+
+        .products-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .product-actions {
+          flex-direction: column;
+        }
+
+        .modal-content {
+          margin: 0.5rem;
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Modal de Login -->
+    <div id="loginModal" class="modal-backdrop">
+      <div class="modal-content">
+        <div class="modal-header">
+          <i class="fas fa-gem"></i>
+          <h2 class="modal-title">Acesso ao Painel</h2>
+          <p class="modal-subtitle">Entre com suas credenciais</p>
+        </div>
+
+        <form id="loginForm" class="form-grid">
+          <div class="form-group full-width">
+            <label>Usuário</label>
+            <input
+              type="text"
+              id="username"
+              required
+              placeholder="Digite seu usuário"
+            />
+          </div>
+
+          <div class="form-group full-width">
+            <label>Senha</label>
+            <input
+              type="password"
+              id="password"
+              required
+              placeholder="Digite sua senha"
+            />
+          </div>
+
+          <div class="form-group full-width">
+            <button type="submit" class="btn btn-primary btn-full">
+              <span id="loginBtnText">Entrar</span>
+              <div id="loginLoading" class="loading hidden"></div>
+            </button>
+          </div>
+        </form>
+
+        <div id="loginError" class="error-message hidden"></div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <div class="header-left">
+            <i class="fas fa-gem" style="font-size: 1.5rem"></i>
+            <h1 class="header-title">Painel de Joias</h1>
+          </div>
+          <button onclick="logout()" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Sair
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <!-- Formulário de Criação -->
+        <div class="card">
+          <h2 class="card-title">
+            <i class="fas fa-plus-circle"></i>
+            Adicionar Novo Produto
+          </h2>
+
+          <form id="productForm" class="form-grid">
+            <div class="form-group">
+              <label>Título</label>
+              <input
+                type="text"
+                name="title"
+                required
+                placeholder="Nome da joia"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Quantidade</label>
+              <input
+                type="number"
+                name="quantity"
+                min="0"
+                required
+                placeholder="Estoque inicial"
+              />
+            </div>
+
+            <div class="form-group full-width">
+              <label>Descrição</label>
+              <textarea
+                name="description"
+                required
+                placeholder="Descrição detalhada do produto"
+              ></textarea>
+            </div>
+
+            <div class="form-group full-width">
+              <label>Imagem</label>
+              <div class="file-input-wrapper">
+                <input type="file" name="imagem" accept="image/*" required />
+                <i class="file-input-icon fas fa-image"></i>
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <button type="submit" class="btn btn-primary">
+                <span id="submitBtnText">
+                  <i class="fas fa-plus"></i>Criar Produto
+                </span>
+                <div id="submitLoading" class="loading hidden"></div>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Catálogo de Produtos -->
+        <div class="card">
+          <div class="header-actions">
+            <h2 class="card-title" style="margin-bottom: 0">
+              <i class="fas fa-store"></i>
+              Catálogo de Produtos
+            </h2>
+            <button onclick="loadProducts()" class="btn btn-secondary">
+              <i class="fas fa-refresh"></i>Atualizar
+            </button>
+          </div>
+
+          <div id="productsContainer" class="products-grid">
+            <!-- Produtos serão carregados aqui -->
+          </div>
+
+          <div id="loadingProducts" class="loading-state hidden">
+            <div class="loading"></div>
+            <p>Carregando produtos...</p>
+          </div>
+
+          <div id="noProducts" class="empty-state hidden">
+            <i class="fas fa-box-open"></i>
+            <p>Nenhum produto encontrado</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 Painel de Joias. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <!-- Notificações -->
+    <div id="notifications" class="notifications"></div>
+
+    <script>
+      const API_BASE = "https://apianalua.onrender.com";
+      let isAuthenticated = false;
+
+      // Sistema de Login
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+
+          const loginBtn = document.getElementById("loginBtnText");
+          const loginLoading = document.getElementById("loginLoading");
+          const loginError = document.getElementById("loginError");
+
+          loginBtn.classList.add("hidden");
+          loginLoading.classList.remove("hidden");
+          loginError.classList.add("hidden");
+
+          // Simular delay de autenticação
+          setTimeout(() => {
+            if (username === "Allyce" && password === "Analu4#") {
+              isAuthenticated = true;
+              document.getElementById("loginModal").style.display = "none";
+              showNotification("Login realizado com sucesso!", "success");
+              loadProducts();
+            } else {
+              loginError.textContent = "Usuário ou senha inválidos";
+              loginError.classList.remove("hidden");
+            }
+
+            loginBtn.classList.remove("hidden");
+            loginLoading.classList.add("hidden");
+          }, 1000);
+        });
+
+      // Logout
+      function logout() {
+        isAuthenticated = false;
+        document.getElementById("loginModal").style.display = "flex";
+        document.getElementById("username").value = "";
+        document.getElementById("password").value = "";
+      }
+
+      // Criar Produto
+      document
+        .getElementById("productForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          if (!isAuthenticated) {
+            showNotification("Você precisa estar logado!", "error");
+            return;
+          }
+
+          const submitBtn = document.getElementById("submitBtnText");
+          const submitLoading = document.getElementById("submitLoading");
+
+          submitBtn.classList.add("hidden");
+          submitLoading.classList.remove("hidden");
+
+          const formData = new FormData(this);
+
+          try {
+            const response = await fetch(`${API_BASE}/create-product`, {
+              method: "POST",
+              body: formData,
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+              showNotification("Produto criado com sucesso!", "success");
+              this.reset();
+              loadProducts();
+            } else {
+              showNotification(
+                result.error || "Erro ao criar produto",
+                "error"
+              );
+            }
+          } catch (error) {
+            showNotification("Erro de conexão com a API", "error");
+          } finally {
+            submitBtn.classList.remove("hidden");
+            submitLoading.classList.add("hidden");
+          }
+        });
+
+      // Carregar Produtos
+      async function loadProducts() {
+        if (!isAuthenticated) return;
+
+        const container = document.getElementById("productsContainer");
+        const loading = document.getElementById("loadingProducts");
+        const noProducts = document.getElementById("noProducts");
+
+        loading.classList.remove("hidden");
+        container.innerHTML = "";
+        noProducts.classList.add("hidden");
+
+        try {
+          const response = await fetch(`${API_BASE}/catalog-products`);
+          const products = await response.json();
+
+          loading.classList.add("hidden");
+
+          if (products && products.length > 0) {
+            products.forEach((product) => {
+              const productCard = createProductCard(product);
+              container.appendChild(productCard);
+            });
+          } else {
+            noProducts.classList.remove("hidden");
+          }
+        } catch (error) {
+          loading.classList.add("hidden");
+          showNotification("Erro ao carregar produtos", "error");
+        }
+      }
+
+      // Criar Card de Produto
+      function createProductCard(product) {
+        const card = document.createElement("div");
+        card.className = "product-card";
+
+        card.innerHTML = `
+        <div class="product-image">
+            ${
+              product.imagem
+                ? `<img src="${product.imagem}" alt="${product.title}">`
+                : `<i class="placeholder fas fa-image"></i>`
+            }
+        </div>
+        
+        <div class="product-info">
+            <h3 class="product-title">${product.title}</h3>
+            <p class="product-description">${product.description}</p>
+            
+            <div class="product-meta">
+                <span class="product-stock">Estoque: ${product.quantity}</span>
+                <span class="product-id">ID: ${product.id}</span>
+            </div>
+            
+            <div class="product-actions">
+                <button class="btn btn-danger btn-small decrease-btn">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button class="btn btn-danger btn-small delete-btn">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+                <button class="btn btn-success btn-small increase-btn">
+                    <i class="fas fa-plus"></i> 
+                </button>
+            </div>
+        </div>
+    `;
+
+        // Adiciona eventos
+        card
+          .querySelector(".decrease-btn")
+          .addEventListener("click", () => updateStock(product.id, "decrease"));
+        card
+          .querySelector(".increase-btn")
+          .addEventListener("click", () => updateStock(product.id, "increase"));
+        card
+          .querySelector(".delete-btn")
+          .addEventListener("click", () => deleteProduct(product.id));
+
+        return card;
+      }
+
+      window.deleteProduct = async function (productId) {
+        if (!isAuthenticated) return;
+
+        if (!confirm("Tem certeza que deseja excluir este produto?")) return;
+
+        try {
+          const response = await fetch(`${API_BASE}/product/${productId}`, {
+            method: "DELETE",
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            showNotification(
+              result.message || "Produto excluído com sucesso",
+              "success"
+            );
+            loadProducts();
+          } else {
+            showNotification(
+              result.error || "Erro ao excluir produto",
+              "error"
+            );
+          }
+        } catch (error) {
+          showNotification("Erro de conexão com a API", "error");
+        }
+      };
+      // Atualizar Estoque
+      window.updateStock = async function (productId, action) {
+        if (!isAuthenticated) return;
+
+        try {
+          const endpoint =
+            action === "increase"
+              ? `${API_BASE}/product/increase/${productId}`
+              : `${API_BASE}/product/decrease/${productId}`;
+
+          const response = await fetch(endpoint, { method: "PUT" });
+          const result = await response.json();
+
+          if (response.ok) {
+            showNotification(result.message, "success");
+            loadProducts();
+          } else {
+            showNotification(
+              result.error || "Erro ao atualizar estoque",
+              "error"
+            );
+          }
+        } catch (error) {
+          showNotification("Erro de conexão com a API", "error");
+        }
+      };
+
+      // Sistema de Notificações
+      function showNotification(message, type = "info") {
+        const notifications = document.getElementById("notifications");
+        const notification = document.createElement("div");
+
+        const icons = {
+          success: "fas fa-check-circle",
+          error: "fas fa-exclamation-circle",
+          info: "fas fa-info-circle",
+        };
+
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+                <i class="${icons[type]}"></i>
+                <span>${message}</span>
+                <button class="close" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+
+        notifications.appendChild(notification);
+
+        setTimeout(() => {
+          notification.classList.add("show");
+        }, 100);
+
+        setTimeout(() => {
+          notification.classList.remove("show");
+          setTimeout(() => {
+            if (notification.parentElement) {
+              notification.remove();
+            }
+          }, 300);
+        }, 5000);
+      }
+
+      // Inicializar aplicação
+      window.addEventListener("load", function () {
+        // Modal aparece automaticamente
+        document.getElementById("loginModal").style.display = "flex";
+      });
+    </script>
+  </body>
+</html>
