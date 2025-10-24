@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Painel de Gerenciamento - Loja de Joias</title>
+    <title>Painel de Gerenciamento - Mabelle Costura</title>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
@@ -18,7 +18,7 @@
 
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f9fefe;
+        background-color: #F7EAEA;
         min-height: 100vh;
         line-height: 1.6;
       }
@@ -36,7 +36,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(91, 58, 57, 0.7);
         backdrop-filter: blur(5px);
         display: flex;
         align-items: center;
@@ -46,73 +46,84 @@
 
       .modal-content {
         background: white;
-        border-radius: 8px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: 0 25px 50px -12px rgba(156, 90, 89, 0.4);
+        padding: 2.5rem;
         width: 100%;
-        max-width: 400px;
+        max-width: 420px;
         margin: 1rem;
+        border: 3px solid #EBD2D2;
       }
 
       .modal-header {
         text-align: center;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
       }
 
       .modal-header i {
-        color: #3ccac8;
-        font-size: 2.5rem;
-        margin-bottom: 0.75rem;
+        color: #9C5A59;
+        font-size: 3rem;
+        margin-bottom: 1rem;
       }
 
       .modal-title {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
         font-weight: bold;
-        color: #0f3e3d;
+        color: #5B3A39;
         margin-bottom: 0.5rem;
       }
 
       .modal-subtitle {
-        color: #4b6968;
+        color: #8C6E6D;
+        font-style: italic;
       }
 
       /* Header */
       header {
-        background-color: #2baeac;
+        background: linear-gradient(135deg, #9C5A59, #713F3E);
         color: white;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px rgba(156, 90, 89, 0.3);
       }
 
       .header-content {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 1rem 0;
+        padding: 1.25rem 0;
       }
 
       .header-left {
         display: flex;
         align-items: center;
-        gap: 0.75rem;
+        gap: 1rem;
       }
 
       .header-title {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
         font-weight: bold;
+      }
+
+      .header-subtitle {
+        font-size: 0.85rem;
+        color: #EBD2D2;
+        font-style: italic;
       }
 
       .logout-btn {
         background: rgba(255, 255, 255, 0.2);
-        border: none;
+        border: 2px solid rgba(255, 255, 255, 0.3);
         color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
+        padding: 0.6rem 1.25rem;
+        border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s;
+        font-weight: 500;
       }
 
       .logout-btn:hover {
         background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-2px);
       }
 
       /* Main Content */
@@ -122,16 +133,17 @@
 
       .card {
         background: white;
-        border-radius: 8px;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(156, 90, 89, 0.1);
+        padding: 2rem;
         margin-bottom: 2rem;
+        border: 1px solid #EBD2D2;
       }
 
       .card-title {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         font-weight: bold;
-        color: #0f3e3d;
+        color: #5B3A39;
         margin-bottom: 1.5rem;
         display: flex;
         align-items: center;
@@ -139,7 +151,7 @@
       }
 
       .card-title i {
-        color: #3ccac8;
+        color: #9C5A59;
       }
 
       /* Forms */
@@ -166,8 +178,8 @@
 
       label {
         display: block;
-        color: #0f3e3d;
-        font-weight: 500;
+        color: #5B3A39;
+        font-weight: 600;
         margin-bottom: 0.5rem;
       }
 
@@ -175,22 +187,23 @@
       textarea {
         width: 100%;
         padding: 0.75rem 1rem;
-        border: 1px solid #e6f5f5;
-        border-radius: 6px;
+        border: 2px solid #E9D9D9;
+        border-radius: 8px;
         font-size: 1rem;
         transition: border-color 0.3s;
-        background: white;
+        background: #F7EAEA;
       }
 
       input:focus,
       textarea:focus {
         outline: none;
-        border-color: #3ccac8;
+        border-color: #9C5A59;
+        background: white;
       }
 
       textarea {
         resize: vertical;
-        min-height: 80px;
+        min-height: 100px;
       }
 
       /* Buttons */
@@ -200,9 +213,9 @@
         justify-content: center;
         padding: 0.75rem 1.5rem;
         border: none;
-        border-radius: 6px;
+        border-radius: 8px;
         font-size: 1rem;
-        font-weight: 500;
+        font-weight: 600;
         cursor: pointer;
         transition: all 0.3s;
         text-decoration: none;
@@ -210,40 +223,41 @@
       }
 
       .btn-primary {
-        background: linear-gradient(135deg, #3ccac8, #2baeac);
+        background: linear-gradient(135deg, #9C5A59, #713F3E);
         color: white;
       }
 
       .btn-primary:hover {
-        background: linear-gradient(135deg, #2baeac, #0f3e3d);
-        transform: translateY(-1px);
+        background: linear-gradient(135deg, #713F3E, #5B3A39);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(156, 90, 89, 0.3);
       }
 
       .btn-success {
-        background-color: #22c55e;
+        background-color: #90B29E;
         color: white;
       }
 
       .btn-success:hover {
-        background-color: #16a34a;
+        background-color: #7a9b88;
       }
 
       .btn-danger {
-        background-color: #ef4444;
+        background-color: #D97A7A;
         color: white;
       }
 
       .btn-danger:hover {
-        background-color: #dc2626;
+        background-color: #c66565;
       }
 
       .btn-secondary {
-        background-color: #e6f5f5;
-        color: #0f3e3d;
+        background-color: #E9D9D9;
+        color: #5B3A39;
       }
 
       .btn-secondary:hover {
-        background-color: #3ccac8;
+        background-color: #C28C8A;
         color: white;
       }
 
@@ -258,8 +272,8 @@
 
       /* Loading */
       .loading {
-        border: 3px solid #e6f5f5;
-        border-top: 3px solid #3ccac8;
+        border: 3px solid #E9D9D9;
+        border-top: 3px solid #9C5A59;
         border-radius: 50%;
         width: 20px;
         height: 20px;
@@ -284,21 +298,22 @@
       }
 
       .product-card {
-        background: #f9fefe;
-        border: 1px solid #e6f5f5;
-        border-radius: 8px;
+        background: #F7EAEA;
+        border: 2px solid #EBD2D2;
+        border-radius: 12px;
         overflow: hidden;
         transition: transform 0.2s, box-shadow 0.2s;
       }
 
       .product-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(43, 174, 172, 0.15);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(156, 90, 89, 0.2);
+        border-color: #C28C8A;
       }
 
       .product-image {
         aspect-ratio: 1;
-        background-color: #f3f4f6;
+        background-color: #E9D9D9;
         overflow: hidden;
         display: flex;
         align-items: center;
@@ -312,25 +327,26 @@
       }
 
       .product-image .placeholder {
-        color: #9ca3af;
+        color: #C28C8A;
         font-size: 2.5rem;
       }
 
       .product-info {
-        padding: 1rem;
+        padding: 1.25rem;
       }
 
       .product-title {
-        font-weight: 600;
-        color: #0f3e3d;
+        font-weight: 700;
+        color: #5B3A39;
         margin-bottom: 0.5rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        font-size: 1.1rem;
       }
 
       .product-description {
-        color: #4b6968;
+        color: #8C6E6D;
         font-size: 0.875rem;
         margin-bottom: 0.75rem;
         display: -webkit-box;
@@ -344,16 +360,19 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 1rem;
+        padding: 0.75rem;
+        background: white;
+        border-radius: 8px;
       }
 
       .product-stock {
-        color: #3ccac8;
+        color: #9C5A59;
         font-weight: bold;
       }
 
       .product-id {
         font-size: 0.75rem;
-        color: #4b6968;
+        color: #8C6E6D;
       }
 
       .product-actions {
@@ -383,35 +402,36 @@
       }
 
       .loading-state {
-        padding: 2rem;
+        padding: 3rem;
         text-align: center;
       }
 
       .loading-state .loading {
-        margin-bottom: 0.75rem;
+        margin-bottom: 1rem;
       }
 
       .loading-state p {
-        color: #4b6968;
+        color: #8C6E6D;
       }
 
       .empty-state {
         text-align: center;
         padding: 3rem 0;
-        color: #4b6968;
+        color: #8C6E6D;
       }
 
       .empty-state i {
-        font-size: 2.5rem;
+        font-size: 3rem;
         margin-bottom: 1rem;
         display: block;
+        color: #C28C8A;
       }
 
       /* Footer */
       footer {
-        background-color: #2baeac;
+        background: linear-gradient(135deg, #713F3E, #5B3A39);
         color: white;
-        padding: 1.5rem 0;
+        padding: 2rem 0;
         margin-top: 3rem;
         text-align: center;
       }
@@ -427,14 +447,15 @@
       .notification {
         display: flex;
         align-items: center;
-        padding: 0.75rem 1.5rem;
-        border-radius: 6px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         margin-bottom: 0.75rem;
         color: white;
         transform: translateX(100%);
         opacity: 0;
         transition: all 0.3s;
+        min-width: 300px;
       }
 
       .notification.show {
@@ -443,28 +464,30 @@
       }
 
       .notification.success {
-        background-color: #22c55e;
+        background-color: #90B29E;
       }
 
       .notification.error {
-        background-color: #ef4444;
+        background-color: #D97A7A;
       }
 
       .notification.info {
-        background-color: #3ccac8;
+        background-color: #9C5A59;
       }
 
       .notification i {
         margin-right: 0.75rem;
+        font-size: 1.25rem;
       }
 
       .notification .close {
-        margin-left: 1rem;
+        margin-left: auto;
         background: none;
         border: none;
         color: white;
         cursor: pointer;
         padding: 0;
+        font-size: 1.25rem;
       }
 
       .notification .close:hover {
@@ -473,11 +496,11 @@
 
       /* Error States */
       .error-message {
-        background-color: #fee2e2;
-        border: 1px solid #fecaca;
-        color: #dc2626;
-        padding: 0.75rem;
-        border-radius: 6px;
+        background-color: #fde8e8;
+        border: 2px solid #D97A7A;
+        color: #c66565;
+        padding: 1rem;
+        border-radius: 8px;
         font-size: 0.875rem;
         text-align: center;
         margin-top: 1rem;
@@ -493,7 +516,7 @@
         right: 0.75rem;
         top: 50%;
         transform: translateY(-50%);
-        color: #4b6968;
+        color: #8C6E6D;
         pointer-events: none;
       }
 
@@ -529,9 +552,9 @@
     <div id="loginModal" class="modal-backdrop">
       <div class="modal-content">
         <div class="modal-header">
-          <i class="fas fa-gem"></i>
-          <h2 class="modal-title">Acesso ao Painel</h2>
-          <p class="modal-subtitle">Entre com suas credenciais</p>
+          <i class="fas fa-scissors"></i>
+          <h2 class="modal-title">Mabelle Costura</h2>
+          <p class="modal-subtitle">Costurando Riqueza</p>
         </div>
 
         <form id="loginForm" class="form-grid">
@@ -572,8 +595,11 @@
       <div class="container">
         <div class="header-content">
           <div class="header-left">
-            <i class="fas fa-gem" style="font-size: 1.5rem"></i>
-            <h1 class="header-title">Painel de Joias</h1>
+            <i class="fas fa-scissors" style="font-size: 1.5rem"></i>
+            <div>
+              <h1 class="header-title">Mabelle Costura</h1>
+              <p class="header-subtitle">Costurando Riqueza</p>
+            </div>
           </div>
           <button onclick="logout()" class="logout-btn">
             <i class="fas fa-sign-out-alt"></i> Sair
@@ -598,7 +624,7 @@
                 type="text"
                 name="title"
                 required
-                placeholder="Nome da joia"
+                placeholder="Nome do produto"
               />
             </div>
 
@@ -619,6 +645,7 @@
                 type="number"
                 name="price"
                 min="0"
+                step="0.01"
                 required
                 placeholder="Preço do produto"
               />
@@ -660,7 +687,7 @@
               Catálogo de Produtos
             </h2>
             <button onclick="loadProducts()" class="btn btn-secondary">
-              <i class="fas fa-refresh"></i>Atualizar
+              <i class="fas fa-sync-alt"></i>Atualizar
             </button>
           </div>
 
@@ -684,7 +711,8 @@
     <!-- Footer -->
     <footer>
       <div class="container">
-        <p>&copy; 2025 Painel de Joias. Todos os direitos reservados.</p>
+        <p>&copy; 2025 Mabelle Costura Criativa. Todos os direitos reservados.</p>
+        <p style="font-size: 0.875rem; margin-top: 0.5rem; color: #EBD2D2;">Costurando Riqueza</p>
       </div>
     </footer>
 
@@ -711,12 +739,12 @@
           loginLoading.classList.remove("hidden");
           loginError.classList.add("hidden");
 
-          // Simular delay de autenticação
+          // Autenticação com novas credenciais
           setTimeout(() => {
-            if (username === "Allyce" && password === "Analu4#") {
+            if (username === "Mabelle" && password === "M4belle#") {
               isAuthenticated = true;
               document.getElementById("loginModal").style.display = "none";
-              showNotification("Login realizado com sucesso!", "success");
+              showNotification("💖 Bem-vinda ao painel, Mabelle!", "success");
               loadProducts();
             } else {
               loginError.textContent = "Usuário ou senha inválidos";
@@ -764,7 +792,7 @@
             const result = await response.json();
 
             if (response.ok) {
-              showNotification("Produto criado com sucesso!", "success");
+              showNotification("✨ Produto criado com sucesso!", "success");
               this.reset();
               loadProducts();
             } else {
@@ -878,7 +906,7 @@
 
           if (response.ok) {
             showNotification(
-              result.message || "Produto excluído com sucesso",
+              result.message || "🗑️ Produto excluído com sucesso",
               "success"
             );
             loadProducts();
@@ -892,6 +920,7 @@
           showNotification("Erro de conexão com a API", "error");
         }
       };
+
       // Atualizar Estoque
       window.updateStock = async function (productId, action) {
         if (!isAuthenticated) return;
